@@ -14,7 +14,7 @@ Load images from different sources and display them in your app using simple and
 
 The framework is lean and compiles in under 2 seconds[¹](#footnote-1). It has an automated test suite 2x the codebase size, ensuring excellent reliability. Nuke is optimized for [performance](https://kean-docs.github.io/nuke/documentation/nuke/performance-guide), and its advanced architecture enables virtually unlimited possibilities for customization.
 
-> **Memory and Disk Cache** · **Image Processing & Decompression** · **Request Coalescing & Priority** · **Prefetching** · **Resumable Downloads** · **Progressive JPEG** · **HEIF, WebP, GIF** · **SwiftUI** · **Async/Await**
+> **Memory and Disk Cache** · **Image Processing & Decompression** · **Request Coalescing & Priority** · **Prefetching** · **Resumable Downloads** · **Progressive JPEG** · **HEIF, WebP, GIF** · **JSON-Encoded Images** · **SwiftUI** · **Async/Await**
 
 ## Sponsors
 
@@ -85,6 +85,25 @@ The [**Getting Started**](https://kean-docs.github.io/nuke/documentation/nuke/ge
 <a href="https://kean-docs.github.io/nuke/documentation/nuke/getting-started">
 <img width="690" alt="Nuke Docs" src="https://user-images.githubusercontent.com/1567433/175793167-b7e0c557-b887-444f-b18a-57d6f5ecf01a.png">
 </a>
+
+## JSON-Encoded Images
+
+Nuke supports loading images that are base64-encoded inside JSON responses. This is useful when the server returns image data as part of a JSON payload rather than directly as binary data.
+
+```json
+{
+    "image": "base64EncodedImageData..."
+}
+```
+
+To enable JSON image decoding, use the `enableJSONDecoding()` modifier on LazyImage:
+
+```swift
+LazyImage(url: URL(string: "https://example.com/json-image"))
+    .enableJSONDecoding()
+```
+
+This automatically registers a custom decoder that extracts the base64-encoded image data from the JSON response, decodes it, and displays it just like any other image.
 
 ## Extensions
 
